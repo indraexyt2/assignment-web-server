@@ -2,17 +2,19 @@ package models
 
 import (
 	"github.com/go-playground/validator/v10"
+	"gorm.io/gorm"
 	"time"
 )
 
 type Product struct {
-	ID          int       `json:"id" gorm:"primaryKey;autoIncrement"`
-	Name        string    `json:"name" gorm:"not null" validate:"required"`
-	Description string    `json:"description" gorm:"type:text"`
-	Price       float64   `json:"price" gorm:"not null" validate:"required"`
-	Category    string    `json:"category" gorm:"not null" validate:"required"`
-	CreatedAt   time.Time `json:"-"`
-	UpdatedAt   time.Time `json:"-"`
+	ID          int            `json:"id" gorm:"primaryKey;autoIncrement"`
+	Name        string         `json:"name" gorm:"not null" validate:"required"`
+	Description string         `json:"description" gorm:"type:text"`
+	Price       float64        `json:"price" gorm:"not null" validate:"required"`
+	Category    string         `json:"category" gorm:"not null" validate:"required"`
+	DeletedAt   gorm.DeletedAt `json:"-" gorm:"index"`
+	CreatedAt   time.Time      `json:"-"`
+	UpdatedAt   time.Time      `json:"-"`
 
 	Inventory *Inventory `json:"inventory,omitempty" gorm:"foreignKey:ProductID"`
 }
